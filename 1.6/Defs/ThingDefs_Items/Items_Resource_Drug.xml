@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <!--
+        GT_OolongTea — partial-oxidation tea, between green and black on the spectrum.
+        Built right (caffeine drug + mood thought + hediff) rather than the broken
+        VBE pattern we had to patch. Real oolong sits in the middle on caffeine and
+        antioxidant content; effects mirror that — modest mood, mild work speed boost,
+        slight rest fall reduction.
+
+        Architecture matches the corrected VBE_BlackTea pattern (post-patch).
+        Parent is DrugBase from VBE so we get the standard drug ThingDef chassis.
+    -->
+
+    <ThingDef ParentName="DrugBase">
+        <defName>GT_OolongTea</defName>
+        <label>oolong tea</label>
+        <description>Oolong tea — leaves partially oxidized to a careful midpoint between green and black. The result is a complex, layered cup with the freshness of green tea and a hint of black tea's depth. Properly brewed oolong is a quiet luxury, valued as much for the steeping ritual as for the drink itself.</description>
+        <descriptionHyperlinks>
+            <HediffDef>GT_DrankOolongTea</HediffDef>
+        </descriptionHyperlinks>
+        <graphicData>
+            <texPath>Things/Item/Drinks/GT_OolongTea</texPath>
+            <graphicClass>Graphic_StackCount</graphicClass>
+        </graphicData>
+        <statBases>
+            <MarketValue>14</MarketValue>
+            <Mass>0.30</Mass>
+            <Flammability>0.5</Flammability>
+            <DeteriorationRate>2.0</DeteriorationRate>
+        </statBases>
+        <ingestible>
+            <foodType>Fluid, Processed</foodType>
+            <joyKind>Chemical</joyKind>
+            <joy>0.13</joy>
+            <drugCategory>Social</drugCategory>
+            <ingestSound>Ingest_Drink</ingestSound>
+            <ingestHoldOffsetStanding>
+                <northDefault>
+                    <offset>(0.18,0,0)</offset>
+                </northDefault>
+            </ingestHoldOffsetStanding>
+            <ingestCommandString>Drink {0}</ingestCommandString>
+            <ingestReportString>Drinking {0}.</ingestReportString>
+            <ingestHoldUsesTable>false</ingestHoldUsesTable>
+            <tasteThought>GT_DrankOolongTea</tasteThought>
+            <outcomeDoers>
+                <li Class="IngestionOutcomeDoer_GiveHediff">
+                    <hediffDef>GT_DrankOolongTea</hediffDef>
+                    <severity>1.0</severity>
+                </li>
+                <li Class="IngestionOutcomeDoer_GiveHediff">
+                    <hediffDef>VBE_CaffeineTolerance</hediffDef>
+                    <severity>0.008</severity>
+                    <divideByBodySize>true</divideByBodySize>
+                    <toleranceChemical>VBE_Caffeine</toleranceChemical>
+                    <multiplyByGeneToleranceFactors>true</multiplyByGeneToleranceFactors>
+                </li>
+            </outcomeDoers>
+        </ingestible>
+        <comps>
+            <li Class="CompProperties_Drug">
+                <chemical>VBE_Caffeine</chemical>
+                <addictiveness>0.005</addictiveness>
+                <minToleranceToAddict>0.25</minToleranceToAddict>
+                <existingAddictionSeverityOffset>0.20</existingAddictionSeverityOffset>
+                <needLevelOffset>0.9</needLevelOffset>
+                <teetotalerCanConsume>true</teetotalerCanConsume>
+                <listOrder>10</listOrder>
+            </li>
+            <li Class="CompProperties_Ingredients" />
+        </comps>
+    </ThingDef>
+
+</Defs>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+    <!--
+        VBE_Tea: graft caffeine drug mechanics onto the existing comestible-style tea.
+
+        VBE's tea uses a different architecture than its coffee: tea relies on
+        VEF.Cooking.Thought_Hediff (DLL) to apply its mood/effect hediff via tasteThought,
+        which is why there's no IngestionOutcomeDoer in the original. We leave that chain
+        intact — it provides the mood bonus, immunity boost, rest fall reduction.
+
+        What's missing is the drug layer. We add it here:
+          - joyKind: Gluttonous -> Chemical (satisfies chemical joy need)
+          - CompProperties_Drug stub -> full caffeine-drug config (matches coffee)
+          - outcomeDoers: add VBE_CaffeineTolerance buildup (does NOT touch the
+            tea hediff — the DLL handles that via tasteThought)
+
+        Tolerance buildup is half coffee's rate (0.008 vs 0.016) reflecting tea's
+        lower caffeine load. Other drug params match coffee for parity.
+    -->
+
+    <Operation Class="PatchOperationReplace">
+        <xpath>/Defs/ThingDef[defName="VBE_Tea"]/ingestible</xpath>
+        <value>
+            <ingestible>
+                <foodType>Fluid, Processed</foodType>
+                <joyKind>Chemical</joyKind>
+                <joy>0.12</joy>
+                <drugCategory>Social</drugCategory>
+                <ingestSound>Ingest_Drink</ingestSound>
+                <ingestHoldOffsetStanding>
+                    <northDefault>
+                        <offset>(0.18,0,0)</offset>
+                    </northDefault>
+                </ingestHoldOffsetStanding>
+                <ingestCommandString>Drink {0}</ingestCommandString>
+                <ingestReportString>Drinking {0}.</ingestReportString>
+                <ingestHoldUsesTable>false</ingestHoldUsesTable>
+                <tasteThought>VBE_DrankTea</tasteThought>
+                <outcomeDoers>
+                    <li Class="IngestionOutcomeDoer_GiveHediff">
+                        <hediffDef>VBE_CaffeineTolerance</hediffDef>
+                        <severity>0.008</severity>
+                        <divideByBodySize>true</divideByBodySize>
+                        <toleranceChemical>VBE_Caffeine</toleranceChemical>
+                        <multiplyByGeneToleranceFactors>true</multiplyByGeneToleranceFactors>
+                    </li>
+                </outcomeDoers>
+            </ingestible>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationReplace">
+        <xpath>/Defs/ThingDef[defName="VBE_Tea"]/comps</xpath>
+        <value>
+            <comps>
+                <li Class="CompProperties_Drug">
+                    <chemical>VBE_Caffeine</chemical>
+                    <addictiveness>0.005</addictiveness>
+                    <minToleranceToAddict>0.25</minToleranceToAddict>
+                    <existingAddictionSeverityOffset>0.20</existingAddictionSeverityOffset>
+                    <needLevelOffset>0.9</needLevelOffset>
+                    <teetotalerCanConsume>true</teetotalerCanConsume>
+                    <listOrder>10</listOrder>
+                </li>
+                <li Class="CompProperties_Ingredients" />
+            </comps>
+        </value>
+    </Operation>
+
+</Patch>

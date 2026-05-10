@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+    <name>Grey's Tea Plantation</name>
+    <author>Greysneakthief</author>
+    <packageId>grey.tea.plantation</packageId>
+    <supportedVersions>
+        <li>1.6</li>
+    </supportedVersions>
+    <description>Adds Camellia sinensis (cold-hardy bush) and Camellia assamica (tropical tree) as cultivable tea plants with biome-appropriate distribution. Raw tea leaves can be processed into Black Tea, Green Tea, or Oolong Tea (a new variety) at the Simple Immersion tea counters. Closes the gap in Vanilla Brewing Expanded, where tea materializes from a brewery recipe with no plant of origin.
+
+Requires:
+- Vanilla Expanded Framework
+- Vanilla Brewing Expanded - Coffees and Teas
+- Simple Immersion - VBE Coffees and Teas (for the tea counter workstations)
+
+Recommended:
+- Caffeine Patch (the companion mod that fixes VBE tea defs to actually behave as caffeinated drugs)
+    </description>
+    <modDependencies>
+        <li>
+            <packageId>oskarpotocki.vanillafactionsexpanded.core</packageId>
+            <displayName>Vanilla Expanded Framework</displayName>
+            <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2023507013</steamWorkshopUrl>
+        </li>
+        <li>
+            <packageId>vanillaexpanded.vbrewecandt</packageId>
+            <displayName>Vanilla Brewing Expanded - Coffees and Teas</displayName>
+            <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2275449762</steamWorkshopUrl>
+        </li>
+        <li>
+            <packageId>Nishe.SICoffeesandTeas</packageId>
+            <displayName>Simple Immersion - VBE Coffees and Teas</displayName>
+        </li>
+    </modDependencies>
+    <loadAfter>
+        <li>Ludeon.RimWorld</li>
+        <li>Ludeon.RimWorld.Royalty</li>
+        <li>Ludeon.RimWorld.Ideology</li>
+        <li>Ludeon.RimWorld.Biotech</li>
+        <li>oskarpotocki.vanillafactionsexpanded.core</li>
+        <li>vanillaexpanded.vbrewe</li>
+        <li>vanillaexpanded.vbrewecandt</li>
+        <li>Nishe.SICoffeesandTeas</li>
+    </loadAfter>
+</ModMetaData>

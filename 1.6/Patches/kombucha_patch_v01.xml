@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+    <!--
+        VBE_Kombucha: same broken architecture as VBE_Tea, same surgical fix.
+        Existing thought + hediff (VBE_DrankKombuchaTea, with its immunity boost
+        and flu reduction via the WhileHavingThoughts comp) is intact and
+        handled via tasteThought + DLL. We only graft on the missing drug layer.
+
+        Calibration note: kombucha's real-world caffeine content is much lower
+        than other teas (trace amounts vs 47mg for black tea). This patch makes
+        kombucha satisfy caffeine cravings uniformly with the others — generous,
+        but matches the user's "patch all teas similarly" call. Tune down later
+        if realism bites: lower needLevelOffset (try 0.4), lower severity on
+        tolerance outcomeDoer (try 0.003), lower addictiveness (try 0.002).
+    -->
+
+    <Operation Class="PatchOperationReplace">
+        <xpath>/Defs/ThingDef[defName="VBE_Kombucha"]/ingestible</xpath>
+        <value>
+            <ingestible>
+                <foodType>Fluid, Processed</foodType>
+                <joyKind>Chemical</joyKind>
+                <joy>0.12</joy>
+                <drugCategory>Social</drugCategory>
+                <ingestSound>Ingest_Drink</ingestSound>
+                <ingestHoldOffsetStanding>
+                    <northDefault>
+                        <offset>(0.18,0,0)</offset>
+                    </northDefault>
+                </ingestHoldOffsetStanding>
+                <ingestCommandString>Drink {0}</ingestCommandString>
+                <ingestReportString>Drinking {0}.</ingestReportString>
+                <ingestHoldUsesTable>false</ingestHoldUsesTable>
+                <tasteThought>VBE_DrankKombuchaTea</tasteThought>
+                <outcomeDoers>
+                    <li Class="IngestionOutcomeDoer_GiveHediff">
+                        <hediffDef>VBE_CaffeineTolerance</hediffDef>
+                        <severity>0.008</severity>
+                        <divideByBodySize>true</divideByBodySize>
+                        <toleranceChemical>VBE_Caffeine</toleranceChemical>
+                        <multiplyByGeneToleranceFactors>true</multiplyByGeneToleranceFactors>
+                    </li>
+                </outcomeDoers>
+            </ingestible>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationReplace">
+        <xpath>/Defs/ThingDef[defName="VBE_Kombucha"]/comps</xpath>
+        <value>
+            <comps>
+                <li Class="CompProperties_Drug">
+                    <chemical>VBE_Caffeine</chemical>
+                    <addictiveness>0.005</addictiveness>
+                    <minToleranceToAddict>0.25</minToleranceToAddict>
+                    <existingAddictionSeverityOffset>0.20</existingAddictionSeverityOffset>
+                    <needLevelOffset>0.9</needLevelOffset>
+                    <teetotalerCanConsume>true</teetotalerCanConsume>
+                    <listOrder>10</listOrder>
+                </li>
+                <li Class="CompProperties_Ingredients" />
+            </comps>
+        </value>
+    </Operation>
+
+</Patch>

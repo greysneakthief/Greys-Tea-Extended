@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <!--
+        GT_DrankOolongTea thought — fired by GT_OolongTea's tasteThought attribute on ingestion.
+        Plain ThoughtDef (no special class). The matching hediff is applied separately via
+        an IngestionOutcomeDoer_GiveHediff on the GT_OolongTea def, so we don't depend on
+        VEF's Thought_Hediff class at all. Decoupled lifecycles: the thought lasts 1 day
+        (mood memory), the hediff lasts half a day via its own Disappears comp (alertness).
+    -->
+
+    <ThoughtDef>
+        <defName>GT_DrankOolongTea</defName>
+        <durationDays>1.0</durationDays>
+        <stackedEffectMultiplierForSameStage>0.5</stackedEffectMultiplierForSameStage>
+        <stackLimit>4</stackLimit>
+        <stages>
+            <li>
+                <label>drank oolong tea</label>
+                <description>The complexity of a properly brewed oolong rewards attention — green's freshness layered with black's depth.</description>
+                <baseMoodEffect>3</baseMoodEffect>
+            </li>
+        </stages>
+    </ThoughtDef>
+
+</Defs>

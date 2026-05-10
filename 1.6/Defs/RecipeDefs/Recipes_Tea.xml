@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <!--
+        Tea brewing recipes — all three target both Simple Immersion tea counters
+        (electric and fueled). Differentiated by:
+          - work amount (green is fastest/least processed, black is slowest/most processed)
+          - skill requirement (oolong needs delicate timing for partial oxidation)
+          - input ratio (black extracts more from leaves, green is gentler)
+
+        Output products are existing VBE_BlackTea and VBE_GreenTea for the first two
+        (which gives the player one of each tea on the brewery and at this counter,
+        a minor inconvenience but cleanest integration). Oolong outputs our own
+        GT_OolongTea since VBE doesn't ship one.
+
+        Sound: SI_Recipe_Kettle (custom from the Immersion mod). Falls back gracefully
+        if the sound def is missing for any reason.
+    -->
+
+    <RecipeDef>
+        <defName>GT_MakeGreenTea</defName>
+        <label>brew green tea</label>
+        <description>Lightly process raw tea leaves into green tea — leaves are pan-fired or steamed quickly to halt oxidation, preserving the fresh, grassy character.</description>
+        <jobString>Brewing green tea.</jobString>
+        <workSkill>Cooking</workSkill>
+        <workSpeedStat>CookSpeed</workSpeedStat>
+        <workAmount>500</workAmount>
+        <effectWorking>Cook</effectWorking>
+        <soundWorking>SI_Recipe_Kettle</soundWorking>
+        <displayPriority>180</displayPriority>
+        <recipeUsers>
+            <li>SI_ElectricTeaCounter</li>
+            <li>SI_FueledTeaCounter</li>
+        </recipeUsers>
+        <ingredients>
+            <li>
+                <filter>
+                    <thingDefs>
+                        <li>VBE_RawTea</li>
+                    </thingDefs>
+                </filter>
+                <count>15</count>
+            </li>
+        </ingredients>
+        <fixedIngredientFilter>
+            <thingDefs>
+                <li>VBE_RawTea</li>
+            </thingDefs>
+        </fixedIngredientFilter>
+        <defaultIngredientFilter>
+            <thingDefs>
+                <li>VBE_RawTea</li>
+            </thingDefs>
+        </defaultIngredientFilter>
+        <products>
+            <VBE_GreenTea>5</VBE_GreenTea>
+        </products>
+        <skillRequirements>
+            <Cooking>5</Cooking>
+        </skillRequirements>
+        <researchPrerequisite>SI_TeaCounter</researchPrerequisite>
+    </RecipeDef>
+
+    <RecipeDef>
+        <defName>GT_MakeBlackTea</defName>
+        <label>brew black tea</label>
+        <description>Fully oxidize and dry raw tea leaves into black tea. The longest of the three processes — the leaves are bruised, oxidized through to completion, then dried and brewed dark and strong.</description>
+        <jobString>Brewing black tea.</jobString>
+        <workSkill>Cooking</workSkill>
+        <workSpeedStat>CookSpeed</workSpeedStat>
+        <workAmount>800</workAmount>
+        <effectWorking>Cook</effectWorking>
+        <soundWorking>SI_Recipe_Kettle</soundWorking>
+        <displayPriority>180</displayPriority>
+        <recipeUsers>
+            <li>SI_ElectricTeaCounter</li>
+            <li>SI_FueledTeaCounter</li>
+        </recipeUsers>
+        <ingredients>
+            <li>
+                <filter>
+                    <thingDefs>
+                        <li>VBE_RawTea</li>
+                    </thingDefs>
+                </filter>
+                <count>20</count>
+            </li>
+        </ingredients>
+        <fixedIngredientFilter>
+            <thingDefs>
+                <li>VBE_RawTea</li>
+            </thingDefs>
+        </fixedIngredientFilter>
+        <defaultIngredientFilter>
+            <thingDefs>
+                <li>VBE_RawTea</li>
+            </thingDefs>
+        </defaultIngredientFilter>
+        <products>
+            <VBE_BlackTea>5</VBE_BlackTea>
+        </products>
+        <skillRequirements>
+            <Cooking>6</Cooking>
+        </skillRequirements>
+        <researchPrerequisite>SI_TeaCounter</researchPrerequisite>
+    </RecipeDef>
+
+    <RecipeDef>
+        <defName>GT_MakeOolongTea</defName>
+        <label>brew oolong tea</label>
+        <description>The most demanding of the three — partial oxidation requires careful timing, halting the process at the precise midpoint between green and black tea. A skilled cook produces a complex, layered cup; an unskilled one produces something muddled.</description>
+        <jobString>Brewing oolong tea.</jobString>
+        <workSkill>Cooking</workSkill>
+        <workSpeedStat>CookSpeed</workSpeedStat>
+        <workAmount>650</workAmount>
+        <effectWorking>Cook</effectWorking>
+        <soundWorking>SI_Recipe_Kettle</soundWorking>
+        <displayPriority>180</displayPriority>
+        <recipeUsers>
+            <li>SI_ElectricTeaCounter</li>
+            <li>SI_FueledTeaCounter</li>
+        </recipeUsers>
+        <ingredients>
+            <li>
+                <filter>
+                    <thingDefs>
+                        <li>VBE_RawTea</li>
+                    </thingDefs>
+                </filter>
+                <count>18</count>
+            </li>
+        </ingredients>
+        <fixedIngredientFilter>
+            <thingDefs>
+                <li>VBE_RawTea</li>
+            </thingDefs>
+        </fixedIngredientFilter>
+        <defaultIngredientFilter>
+            <thingDefs>
+                <li>VBE_RawTea</li>
+            </thingDefs>
+        </defaultIngredientFilter>
+        <products>
+            <GT_OolongTea>5</GT_OolongTea>
+        </products>
+        <skillRequirements>
+            <Cooking>8</Cooking>
+        </skillRequirements>
+        <researchPrerequisite>SI_TeaCounter</researchPrerequisite>
+    </RecipeDef>
+
+</Defs>

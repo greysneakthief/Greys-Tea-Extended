@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+    <!--
+        VBE_MakeGreenTea: remove the forced sugar requirement.
+        Real green tea is steeped leaves and water, not a sugar-spiked confection.
+        Recipe becomes thin (just VBE_Tea -> VBE_GreenTea) which is the honest
+        consequence of a mod that abstracts all teas to one raw material.
+        The plantation mod will eventually differentiate via separate tea leaves
+        with distinct processing recipes; this is the surgical interim fix.
+
+        Description left intact — "citrusy" is a real flavor note for green tea
+        and doesn't lie. The "spiked with sugar" phrase becomes slightly stale
+        given the recipe change, but it's an aesthetic issue, not a mechanical one.
+    -->
+
+    <Operation Class="PatchOperationReplace">
+        <xpath>/Defs/RecipeDef[defName="VBE_MakeGreenTea"]/ingredients</xpath>
+        <value>
+            <ingredients>
+                <li>
+                    <filter>
+                        <thingDefs>
+                            <li>VBE_Tea</li>
+                        </thingDefs>
+                    </filter>
+                    <count>0.8</count>
+                </li>
+            </ingredients>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationReplace">
+        <xpath>/Defs/RecipeDef[defName="VBE_MakeGreenTea"]/fixedIngredientFilter</xpath>
+        <value>
+            <fixedIngredientFilter>
+                <thingDefs>
+                    <li>VBE_Tea</li>
+                </thingDefs>
+                <categories>
+                </categories>
+            </fixedIngredientFilter>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationReplace">
+        <xpath>/Defs/RecipeDef[defName="VBE_MakeGreenTea"]/defaultIngredientFilter</xpath>
+        <value>
+            <defaultIngredientFilter>
+                <thingDefs>
+                    <li>VBE_Tea</li>
+                </thingDefs>
+                <categories>
+                </categories>
+            </defaultIngredientFilter>
+        </value>
+    </Operation>
+
+</Patch>

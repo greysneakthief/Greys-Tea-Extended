@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <!--
+        GT_DrankOolongTea — the hediff that delivers oolong's effects.
+        Linked to GT_DrankOolongTea thought via HediffCompProperties_WhileHavingThoughts:
+        the thought firing applies the hediff (via VEF.Cooking.Thought_Hediff DLL class
+        on the thought side), and the WhileHavingThoughts comp here ensures the hediff
+        sticks around exactly as long as the thought remains in memory.
+
+        Effects: small mood (carried by the thought, not duplicated here), modest
+        global work speed boost (caffeine alertness), slight rest fall reduction.
+        This is the "between green and black" profile — present but understated.
+    -->
+
+    <HediffDef>
+        <defName>GT_DrankOolongTea</defName>
+        <hediffClass>HediffWithComps</hediffClass>
+        <label>drank oolong tea</label>
+        <description>This pawn recently drank a cup of oolong tea. They feel refreshed, focused, and slightly more rested than they would otherwise.</description>
+        <defaultLabelColor>(0.6, 0.4, 0.2)</defaultLabelColor>
+        <isBad>false</isBad>
+        <maxSeverity>1.0</maxSeverity>
+        <initialSeverity>1.0</initialSeverity>
+        <comps>
+            <li Class="HediffCompProperties_Disappears">
+                <disappearsAfterTicks>30000</disappearsAfterTicks>
+                <showRemainingTime>true</showRemainingTime>
+            </li>
+        </comps>
+        <stages>
+            <li>
+                <statOffsets>
+                    <WorkSpeedGlobal>0.03</WorkSpeedGlobal>
+                    <RestFallRateFactor>-0.05</RestFallRateFactor>
+                </statOffsets>
+            </li>
+        </stages>
+    </HediffDef>
+
+</Defs>

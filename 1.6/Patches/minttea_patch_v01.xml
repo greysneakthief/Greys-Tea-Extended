@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+    <!--
+        VBE_MintTea: same broken architecture as VBE_Tea, same surgical fix.
+        Existing thought + hediff (VBE_DrankMintTea) is intact and handled via
+        tasteThought + DLL. We only graft on the missing drug layer.
+
+        Mint tea here is "black tea leaves mixed with mint" per the def's
+        description — real black tea base, real caffeine. Pure mint herbal
+        tea would be a different story, but that's not what VBE shipped.
+    -->
+
+    <Operation Class="PatchOperationReplace">
+        <xpath>/Defs/ThingDef[defName="VBE_MintTea"]/ingestible</xpath>
+        <value>
+            <ingestible>
+                <foodType>Fluid, Processed</foodType>
+                <joyKind>Chemical</joyKind>
+                <joy>0.12</joy>
+                <drugCategory>Social</drugCategory>
+                <ingestSound>Ingest_Drink</ingestSound>
+                <ingestHoldOffsetStanding>
+                    <northDefault>
+                        <offset>(0.18,0,0)</offset>
+                    </northDefault>
+                </ingestHoldOffsetStanding>
+                <ingestCommandString>Drink {0}</ingestCommandString>
+                <ingestReportString>Drinking {0}.</ingestReportString>
+                <ingestHoldUsesTable>false</ingestHoldUsesTable>
+                <tasteThought>VBE_DrankMintTea</tasteThought>
+                <outcomeDoers>
+                    <li Class="IngestionOutcomeDoer_GiveHediff">
+                        <hediffDef>VBE_CaffeineTolerance</hediffDef>
+                        <severity>0.008</severity>
+                        <divideByBodySize>true</divideByBodySize>
+                        <toleranceChemical>VBE_Caffeine</toleranceChemical>
+                        <multiplyByGeneToleranceFactors>true</multiplyByGeneToleranceFactors>
+                    </li>
+                </outcomeDoers>
+            </ingestible>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationReplace">
+        <xpath>/Defs/ThingDef[defName="VBE_MintTea"]/comps</xpath>
+        <value>
+            <comps>
+                <li Class="CompProperties_Drug">
+                    <chemical>VBE_Caffeine</chemical>
+                    <addictiveness>0.005</addictiveness>
+                    <minToleranceToAddict>0.25</minToleranceToAddict>
+                    <existingAddictionSeverityOffset>0.20</existingAddictionSeverityOffset>
+                    <needLevelOffset>0.9</needLevelOffset>
+                    <teetotalerCanConsume>true</teetotalerCanConsume>
+                    <listOrder>10</listOrder>
+                </li>
+                <li Class="CompProperties_Ingredients" />
+            </comps>
+        </value>
+    </Operation>
+
+</Patch>

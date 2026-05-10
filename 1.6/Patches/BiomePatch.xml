@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+    <!--
+        Wild plant distribution for Camellia variants.
+
+        Sinensis (cold-hardy bush): cooler biomes — Temperate Forest, Boreal Forest,
+        Cold Bog, Temperate Swamp. Mirrors real cultivation regions like cooler
+        Chinese highlands, Japan, cool Sri Lankan/Kenyan elevations.
+
+        Assamica (tropical tree): warm wet biomes only — Tropical Rainforest and
+        Tropical Swamp. Mirrors Assam, Sri Lankan lowlands, Vietnam, warm Yunnan,
+        warm Kenya plantations.
+
+        Spawn weights deliberately low (0.005-0.02). Tea plants weren't truly wild
+        in most cultivated regions — they're cultivars. Low weights treat wild
+        spawns as feral escapees from old plantings rather than naturally common.
+    -->
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/BiomeDef[defName = "TemperateForest"]/wildPlants</xpath>
+        <value>
+            <GT_CamelliaSinensis>0.012</GT_CamelliaSinensis>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/BiomeDef[defName = "TemperateSwamp"]/wildPlants</xpath>
+        <value>
+            <GT_CamelliaSinensis>0.010</GT_CamelliaSinensis>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/BiomeDef[defName = "BorealForest"]/wildPlants</xpath>
+        <value>
+            <GT_CamelliaSinensis>0.005</GT_CamelliaSinensis>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/BiomeDef[defName = "ColdBog"]/wildPlants</xpath>
+        <value>
+            <GT_CamelliaSinensis>0.005</GT_CamelliaSinensis>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/BiomeDef[defName = "TropicalRainforest"]/wildPlants</xpath>
+        <value>
+            <GT_CamelliaAssamica>0.020</GT_CamelliaAssamica>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>/Defs/BiomeDef[defName = "TropicalSwamp"]/wildPlants</xpath>
+        <value>
+            <GT_CamelliaAssamica>0.015</GT_CamelliaAssamica>
+        </value>
+    </Operation>
+
+</Patch>

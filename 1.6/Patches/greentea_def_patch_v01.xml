@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+    <!--
+        VBE_GreenTea: architectural outlier among the broken teas.
+        Original used joyKind=VCE_Confectionery (treated as a sweet treat,
+        not a tea) and joy=0.25 (significantly higher than other teas at 0.12).
+        This was the "spiked with sugar to taste like a dessert" framing.
+
+        Normalize to Chemical joy kind matching the other teas now that we've
+        also stripped sugar from the recipe. Drop joy to 0.12 for parity.
+        Reuses the existing VBE_DrankTea thought (which is what the original
+        green tea def already pointed at — green tea has no own thought/hediff).
+    -->
+
+    <Operation Class="PatchOperationReplace">
+        <xpath>/Defs/ThingDef[defName="VBE_GreenTea"]/ingestible</xpath>
+        <value>
+            <ingestible>
+                <foodType>Fluid, Processed</foodType>
+                <joyKind>Chemical</joyKind>
+                <joy>0.12</joy>
+                <drugCategory>Social</drugCategory>
+                <ingestSound>Ingest_Drink</ingestSound>
+                <ingestHoldOffsetStanding>
+                    <northDefault>
+                        <offset>(0.18,0,0)</offset>
+                    </northDefault>
+                </ingestHoldOffsetStanding>
+                <ingestCommandString>Drink {0}</ingestCommandString>
+                <ingestReportString>Drinking {0}.</ingestReportString>
+                <ingestHoldUsesTable>false</ingestHoldUsesTable>
+                <tasteThought>VBE_DrankTea</tasteThought>
+                <outcomeDoers>
+                    <li Class="IngestionOutcomeDoer_GiveHediff">
+                        <hediffDef>VBE_CaffeineTolerance</hediffDef>
+                        <severity>0.008</severity>
+                        <divideByBodySize>true</divideByBodySize>
+                        <toleranceChemical>VBE_Caffeine</toleranceChemical>
+                        <multiplyByGeneToleranceFactors>true</multiplyByGeneToleranceFactors>
+                    </li>
+                </outcomeDoers>
+            </ingestible>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationReplace">
+        <xpath>/Defs/ThingDef[defName="VBE_GreenTea"]/comps</xpath>
+        <value>
+            <comps>
+                <li Class="CompProperties_Drug">
+                    <chemical>VBE_Caffeine</chemical>
+                    <addictiveness>0.005</addictiveness>
+                    <minToleranceToAddict>0.25</minToleranceToAddict>
+                    <existingAddictionSeverityOffset>0.20</existingAddictionSeverityOffset>
+                    <needLevelOffset>0.9</needLevelOffset>
+                    <teetotalerCanConsume>true</teetotalerCanConsume>
+                    <listOrder>10</listOrder>
+                </li>
+                <li Class="CompProperties_Ingredients" />
+            </comps>
+        </value>
+    </Operation>
+
+</Patch>
